@@ -1,0 +1,28 @@
+
+#######################################
+# Syntax Coloring Map for PCF8563
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+PCF8563	KEYWORD1
+Time	KEYWORD1
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+init	KEYWORD2
+stopClock	KEYWORD2
+startClock	KEYWORD2
+setYear	KEYWORD2
+setMonth	KEYWORD2
+setDay	KEYWORD2
+setHour	KEYWORD2
+setMinut	KEYWORD2
+setSecond	KEYWORD2
+getTime	KEYWORD2
