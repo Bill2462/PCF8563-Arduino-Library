@@ -26,12 +26,12 @@ public:
   void startClock();//start the clock
 
   //time settings functions
-  void setYear(uint8_t year);
-  void setMonth(uint8_t month);
-  void setDay(uint8_t day);
-  void setHour(uint8_t hour);
-  void setMinut(uint8_t minut);
-  void setSecond(uint8_t second);
+  void setYear(uint8_t year);//set year
+  void setMonth(uint8_t month);//set month
+  void setDay(uint8_t day);//set day
+  void setHour(uint8_t hour);//set hour
+  void setMinut(uint8_t minut);//set minut
+  void setSecond(uint8_t second);//set second
 
   //time reading functions
   Time getTime();//get time
@@ -39,9 +39,9 @@ public:
 private:
   uint8_t read(uint8_t address);//read one byte from selected register
   void write(uint8_t address, uint8_t data);//write one byte of data to the register
-  void write_OR(uint8_t address, uint8_t data);
-  void write_AND(uint8_t address, uint8_t data);
-  unsigned char bcd_to_number(uint8_t first, uint8_t second);
+  void write_OR(uint8_t address, uint8_t data);//write data to the register using OR operations
+  void write_AND(uint8_t address, uint8_t data);//write data to the register using AND operation
+  unsigned char bcd_to_number(uint8_t first, uint8_t second);//convert two digits to one number
   uint8_t get_first_number(unsigned short number);//get ten’s place digit of the number
   uint8_t get_second_number(unsigned short number);//get unit place digit of the number
 
