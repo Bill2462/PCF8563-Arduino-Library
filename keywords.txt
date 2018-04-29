@@ -26,3 +26,7 @@ setHour	KEYWORD2
 setMinut	KEYWORD2
 setSecond	KEYWORD2
 getTime	KEYWORD2
+checkClockIntegrity	KEYWORD2
+enableClkOutput	KEYWORD2
+disableClkOutput	KEYWORD2
+setClkOutputFrequency	KEYWORD2

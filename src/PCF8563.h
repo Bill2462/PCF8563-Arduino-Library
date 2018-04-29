@@ -16,6 +16,15 @@ struct Time
   uint8_t second;
 };
 
+//output frequency
+enum output_frequency
+{
+  CLKOUT_32768_Hz,
+  CLKOUT_1024_Hz,
+  CLKOUT_32_Hz,
+  CLKOUT_1_Hz,
+};
+
 class PCF8563
 {
 public:
@@ -33,8 +42,14 @@ public:
   void setMinut(uint8_t minut);//set minut
   void setSecond(uint8_t second);//set second
 
+  //clkout output
+  void enableClkOutput();//enable CLK output
+  void disableClkOutput();//disable CLK output
+  void setClkOutputFrequency(output_frequency frequency);//set CLK output frequency
+
   //time reading functions
   Time getTime();//get time
+  bool checkClockIntegrity();//check clock integrity
 
 private:
   uint8_t read(uint8_t address);//read one byte from selected register

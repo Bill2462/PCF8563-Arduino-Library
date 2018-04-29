@@ -29,7 +29,7 @@ void PCF8563::stopClock()
 
 //Set the year
 //Parameters:
-// *uint8_t year -> selected year (you can set values 0-99)
+// * uint8_t year -> selected year (you can set values 0-99)
 //Returns: None
 void PCF8563::setYear(uint8_t year)
 {
@@ -39,7 +39,7 @@ void PCF8563::setYear(uint8_t year)
 
 //Set the month
 //Parameters:
-// *uint8_t month -> selected month (you can set values 1-12)
+// * uint8_t month -> selected month (you can set values 1-12)
 //Returns: None
 void PCF8563::setMonth(uint8_t month)
 {
@@ -49,7 +49,7 @@ void PCF8563::setMonth(uint8_t month)
 
 //Set the day
 //Parameters:
-// *uint8_t day -> selected day (you can set values 1-31)
+// * uint8_t day -> selected day (you can set values 1-31)
 //Returns: None
 void PCF8563::setDay(uint8_t day)
 {
@@ -79,7 +79,7 @@ void PCF8563::setMinut(uint8_t minut)
 
 //Set the second
 //Parameters:
-// *uint8_t second -> selected day (you can set values 0-59)
+// * uint8_t second -> selected day (you can set values 0-59)
 //Returns: None
 void PCF8563::setSecond(uint8_t second)
 {
@@ -113,6 +113,68 @@ Time PCF8563::getTime()
   output.second  = bcd_to_number((SECONDS&0b01110000)>>4,SECONDS&0b00001111);
 
   return output;
+}
+
+//Check clock integrity
+//Parameters: None
+//Returns: clock status (bool)
+bool PCF8563::checkClockIntegrity()
+{
+    const uint8_t data = read(VL_seconds);//read the data
+
+    if(data & (1<<7))
+    {
+      return 0;//if clock integrity is not guaranteed return 0
+    }
+
+    else
+    {
+      return 1;//otherwise return 1
+    }
+}
+
+//Enable CLK OUTPUT
+//Parameters: None
+//Returns: None
+void PCF8563::enableClkOutput()
+{
+  write_OR(CLKOUT_control,1<<7);//set FE bit in CLKOUT_control register
+}
+
+//Disable CLK OUTPUT
+//Parameters: None
+//Returns: None
+void PCF8563::disableClkOutput()
+{
+  write_AND(CLKOUT_control,~(1<<7));//clear FE bit in CLKOUT_control register
+}
+
+//Set CLK OUTPUT frequency
+//Parameters:
+// * output_frequency frequency -> Selected frequency
+//Returns: None
+void PCF8563::setClkOutputFrequency(output_frequency frequency)
+{
+  switch(frequency)
+  {
+    case CLKOUT_32768_Hz:
+      write_AND(CLKOUT_control,~((1<<0)|(1<<1)));
+      break;
+
+    case CLKOUT_1024_Hz:
+      write_AND(CLKOUT_control,~(1<<1));
+      write_OR(CLKOUT_control,1<<0);
+      break;
+
+    case CLKOUT_32_Hz:
+      write_AND(CLKOUT_control,~(1<<0));
+      write_OR(CLKOUT_control,1<<1);
+      break;
+
+    case CLKOUT_1_Hz:
+      write_OR(CLKOUT_control,(1<<0)|(1<<1));
+      break;
+  }
 }
 
 //Read one byte of data
